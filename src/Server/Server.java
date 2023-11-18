@@ -6,46 +6,53 @@ import Server.Utils.Connection;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 
+import static Common.Constants.CLIENT_REGISTRY;
+
 public class Server {
-
-    final String CLIENT = "ClientImpl";
-    private final LocalDateTime serverTime;
     private final List<ClientInterface> clients;
+    private final LocalTime serverTime;
 
-    public Server(LocalDateTime time, List<Connection> connections) {
+    public Server(LocalTime time, List<Connection> connections) {
         this.serverTime = time;
         this.clients = getClients(connections);
     }
 
     public Server(List<Connection> connections) {
-        this.serverTime = LocalDateTime.now();
+        this.serverTime = LocalTime.now();
         this.clients = getClients(connections);
+    }
+
+    public LocalTime getServerTime() {
+        return serverTime;
+    }
+
+    public long getTimeDiff(LocalTime client) {
+        return client.toNanoOfDay() - getServerTime().toNanoOfDay();
+    }
+
+    public void sendDiffToClients(long timeDiff) {
+        try {
+            for (ClientInterface client : clients) {
+                client.adjustTime(getServerTime(), timeDiff);
+            }
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public List<LocalTime> sendTimeRequests() {
+        return clients.stream()
+                .map(this::getClientTime)
+                .toList();
     }
 
     private List<ClientInterface> getClients(List<Connection> connections) {
         return connections.stream()
                 .map(this::getRmiRegistry)
                 .map(this::getLookup)
-                .toList();
-    }
-
-    public void setNewClientsTime(LocalDateTime newTime) {
-        clients.forEach(c -> {
-            try {
-                c.setTime(newTime);
-            } catch (RemoteException e) {
-                throw new RuntimeException(e);
-            }
-        });
-    }
-
-    public List<LocalTime> sendTimeRequests() {
-        return clients.stream()
-                .map(this::getClientTime)
                 .toList();
     }
 
@@ -59,7 +66,7 @@ public class Server {
 
     private ClientInterface getLookup(Registry registry) {
         try {
-            return (ClientInterface) registry.lookup(CLIENT);
+            return (ClientInterface) registry.lookup(CLIENT_REGISTRY);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -72,9 +79,5 @@ public class Server {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public LocalDateTime getServerTime() {
-        return serverTime;
     }
 }
