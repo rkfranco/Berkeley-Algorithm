@@ -1,0 +1,17 @@
+TRABALHO PRÁTICO 03 – SINCRONIZAÇÃO DE RELÓGIOS
+
+O algoritmo de Berkeley é o método que faz o relógio distribuir e sincronizar computadores. Ele faz uma consulta em cada computador e verifica os valores dos relógios. Efetua uma média dos dados coletados e informa a cada máquina para que se ajuste. Atrasando ou adiantando.
+Passos do funcionamento de Berkeley:
+1.	Server solicita a hora dos clientes
+2.	Cada cliente responde ao servidor informando qual é a diferença de tempo em relação a ele
+3.	O servidor efetua a média dos tempos (incluindo a leitura dele).
+4.	O servidor encaminha o ajuste necessário a ser feito pelo cliente (média + inversão da diferença de tempo enviada no passo 2).
+5.	Client realiza o ajuste.
+A avaliação observará aos seguintes critérios:
+- 	implementação do algoritmo de Berkeley (8,0 pontos)
+- 	funcionamento correto (2,0 pontos)
+
+Observações:
+1.	o trabalho pode ter no máximo 3 (três) integrantes.
+2.	os programas-fonte devem ser enviados por e-mail (jcgross@furb.br) – Apenas 1 envia e menciona os integrantes da equipe no e-mail e no código-fonte.
+3.	a data de entrega é 24/11/2023
