@@ -16,10 +16,12 @@ public class ServerMain {
         connections.add(new Connection(SERVER_IP, PORT_2));
 
         Server server = new Server(SERVER_TIME, connections);
-        List<LocalTime> times = server.sendTimeRequests();
+        List<LocalTime> times = new ArrayList<>(server.sendTimeRequests());
 
         System.out.println("Horario do servidor: \n" + DT_FORMATTER.format(server.getServerTime()));
         System.out.println("Horarios dos clientes: \n" + times.stream().map(DT_FORMATTER::format).collect(Collectors.joining("\n")));
+
+        times.add(server.getServerTime());
 
         long totalSumDiff = times.stream()
                 .map(server::getTimeDiff)
