@@ -3,8 +3,8 @@ package Client;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
+import static Common.Constants.DT_FORMATTER;
 import static java.util.Objects.nonNull;
 
 public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
@@ -29,10 +29,11 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     }
 
     public void setTime(LocalTime time) {
-        DateTimeFormatter dt = DateTimeFormatter.ofPattern("HH:mm:ss");
         if (nonNull(time)) {
             this.time = time;
-            System.out.println("Data atualizada: " + dt.format(time) + "\n");
+            System.out.println("Data atualizada: " + DT_FORMATTER.format(time) + "\n");
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 }

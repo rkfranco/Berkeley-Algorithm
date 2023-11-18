@@ -21,8 +21,8 @@ public class ClientMain {
 
             registry.rebind(CLIENT_REGISTRY, sdrmi2);
 
-            System.out.println("Cliente\\Servidor " + sdrmi1 + " registrado e pronto para aceitar solicitações.");
-            System.out.println("Cliente\\Servidor " + sdrmi2 + " registrado e pronto para aceitar solicitações.\n");
+            System.out.println("Cliente " + sdrmi1 + " registrado e pronto para aceitar solicitações.");
+            System.out.println("Cliente " + sdrmi2 + " registrado e pronto para aceitar solicitações.\n");
         } catch (Exception ex) {
             System.out.println("Houve um erro: " + ex.getMessage());
         }
