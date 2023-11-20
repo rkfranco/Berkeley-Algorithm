@@ -10,8 +10,11 @@ import static java.util.Objects.nonNull;
 public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
     private LocalTime time = null;
+    private int id;
 
-    protected ClientImpl() throws RemoteException {
+    protected ClientImpl(int id, LocalTime time) throws RemoteException {
+        this.time = time;
+        this.id = id;
     }
 
     @Override
@@ -31,9 +34,22 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     public void setTime(LocalTime time) {
         if (nonNull(time)) {
             this.time = time;
-            System.out.println("Data atualizada: " + DT_FORMATTER.format(time) + "\n");
+            System.out.println("[Cliente " + getId() + "]: Data atualizada: " + DT_FORMATTER.format(time) + "\n");
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "[Cliente " + getId() + "]: criado com sucesso | Hora: " + DT_FORMATTER.format(getTime());
     }
 }

@@ -11,15 +11,18 @@ import static Common.Constants.*;
 
 public class ServerMain {
     public static void main(String[] args) {
-        List<Connection> connections = new ArrayList<>();
-        connections.add(new Connection(SERVER_IP, PORT_1));
-        connections.add(new Connection(SERVER_IP, PORT_2));
+        List<Connection> connections = List.of(
+                new Connection(SERVER_IP, PORT_1),
+                new Connection(SERVER_IP, PORT_2),
+                new Connection(SERVER_IP, PORT_3),
+                new Connection(SERVER_IP, PORT_4));
 
         Server server = new Server(SERVER_TIME, connections);
         List<LocalTime> times = new ArrayList<>(server.sendTimeRequests());
 
-        System.out.println("Horario do servidor: \n" + DT_FORMATTER.format(server.getServerTime()));
-        System.out.println("Horarios dos clientes: \n" + times.stream().map(DT_FORMATTER::format).collect(Collectors.joining("\n")));
+        System.out.println("-----SERVIDOR-----");
+        System.out.println("Horario do servidor: \n" + DT_FORMATTER.format(server.getServerTime()) + "\n");
+        System.out.println("Horarios dos clientes: \n" + times.stream().map(DT_FORMATTER::format).collect(Collectors.joining("\n")) + "\n");
 
         times.add(server.getServerTime());
 
@@ -29,6 +32,9 @@ public class ServerMain {
                 .sum();
 
         long averageDiff = totalSumDiff / times.size();
+
+        System.out.println("Diferenca media de tempo em nano segundos: " + averageDiff);
+        System.out.println("------------------\n");
 
         server.sendDiffToClients(averageDiff);
     }
