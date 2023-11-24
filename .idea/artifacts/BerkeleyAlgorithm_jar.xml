@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="BerkeleyAlgorithm:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/BerkeleyAlgorithm_jar</output-path>
+    <root id="archive" name="BerkeleyAlgorithm.jar">
+      <element id="module-output" name="BerkeleyAlgorithm" />
+    </root>
+  </artifact>
+</component>
