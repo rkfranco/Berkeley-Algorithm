@@ -8,6 +8,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static Common.Constants.CLIENT_REGISTRY;
 
@@ -46,14 +47,14 @@ public class Server {
     public List<LocalTime> sendTimeRequests() {
         return clients.stream()
                 .map(this::getClientTime)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     private List<ClientInterface> getClients(List<Connection> connections) {
         return connections.stream()
                 .map(this::getRmiRegistry)
                 .map(this::getLookup)
-                .toList();
+                .collect(Collectors.toList());
     }
 
     private LocalTime getClientTime(ClientInterface client) {

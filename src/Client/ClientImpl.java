@@ -3,13 +3,14 @@ package Client;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.time.LocalTime;
+import java.util.Optional;
 
 import static Common.Constants.DT_FORMATTER;
 import static java.util.Objects.nonNull;
 
 public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
-    private LocalTime time = null;
+    private LocalTime time;
     private int id;
 
     protected ClientImpl(int id, LocalTime time) throws RemoteException {
@@ -19,9 +20,8 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
 
     @Override
     public void adjustTime(LocalTime serverTime, long timeDiff) {
-        long serverNano = serverTime.toNanoOfDay();
         long clientNano = getTime().toNanoOfDay();
-        long localDiff = clientNano - serverNano;
+        long localDiff = clientNano - serverTime.toNanoOfDay();
         localDiff = localDiff * -1 + timeDiff + clientNano;
         setTime(LocalTime.ofNanoOfDay(localDiff));
     }
@@ -32,12 +32,8 @@ public class ClientImpl extends UnicastRemoteObject implements ClientInterface {
     }
 
     public void setTime(LocalTime time) {
-        if (nonNull(time)) {
-            this.time = time;
-            System.out.println("[Cliente " + getId() + "]: Data atualizada: " + DT_FORMATTER.format(time) + "\n");
-        } else {
-            throw new IllegalArgumentException();
-        }
+        this.time = Optional.ofNullable(time).orElseThrow(IllegalArgumentException::new);
+        System.out.println("[Cliente " + getId() + "]: Data atualizada: " + DT_FORMATTER.format(time) + "\n");
     }
 
     public int getId() {
