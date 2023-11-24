@@ -3,9 +3,9 @@ import Server.ServerMain;
 
 /*
  *   Alunos:
- *   @author Rodrigo Kapulka Franco
- *   @author Ana Carolina da Silva
- *   @author Gustavo Baroni Bruder
+ *   Rodrigo Kapulka Franco
+ *   Ana Carolina da Silva
+ *   Gustavo Baroni Bruder
  */
 public class Main {
     public static void main(String[] args) {

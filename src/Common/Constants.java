@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
 
 /*
  *   Alunos:
- *   @author Rodrigo Kapulka Franco
- *   @author Ana Carolina da Silva
- *   @author Gustavo Baroni Bruder
+ *   Rodrigo Kapulka Franco
+ *   Ana Carolina da Silva
+ *   Gustavo Baroni Bruder
  */
 public class Constants {
     public static final String SERVER_IP = "localhost";
