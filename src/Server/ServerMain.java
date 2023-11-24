@@ -9,6 +9,12 @@ import java.util.stream.Collectors;
 
 import static Common.Constants.*;
 
+/*
+ *   Alunos:
+ *   @author Rodrigo Kapulka Franco
+ *   @author Ana Carolina da Silva
+ *   @author Gustavo Baroni Bruder
+ */
 public class ServerMain {
     public static void main(String[] args) {
         List<Connection> connections = List.of(

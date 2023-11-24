@@ -5,6 +5,12 @@ import Client.ClientImpl;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/*
+ *   Alunos:
+ *   @author Rodrigo Kapulka Franco
+ *   @author Ana Carolina da Silva
+ *   @author Gustavo Baroni Bruder
+ */
 public class Constants {
     public static final String SERVER_IP = "localhost";
     public static final int PORT_1 = 4500;

@@ -7,6 +7,12 @@ import java.time.LocalTime;
 
 import static Common.Constants.*;
 
+/*
+ *   Alunos:
+ *   @author Rodrigo Kapulka Franco
+ *   @author Ana Carolina da Silva
+ *   @author Gustavo Baroni Bruder
+ */
 public class ClientMain {
     public static void main(String[] args) {
         try {
